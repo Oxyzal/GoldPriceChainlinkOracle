@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #fdfdfd;
+  --foreground: #111111;
+  --accent: #00ffa3; /* vert crypto */
+  --accent-dark: #00cc82;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b0b0b;
+    --foreground: #f5f5f5;
+    --accent: #00ffa3;
+    --accent-dark: #00cc82;
   }
 }
 
+/* Base */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Geist Sans', system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Effet glass / crypto */
+main {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+
+.dark main {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 60px rgba(0, 255, 163, 0.1);
+}
+
+/* Boutons */
+a {
+  transition: all 0.25s ease;
+}
+
+a:hover {
+  transform: translateY(-2px);
+}
+
+/* Connect Wallet */
+button[data-testid="rk-connect-button"] {
+  background: var(--accent);
+  color: black;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.6rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+button[data-testid="rk-connect-button"]:hover {
+  background: var(--accent-dark);
+  transform: scale(1.03);
+  box-shadow: 0 0 20px var(--accent);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+h1 {
+  animation: float 4s ease-in-out infinite;
 }

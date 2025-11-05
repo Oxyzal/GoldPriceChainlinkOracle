@@ -1,7 +1,35 @@
+"use client";
+
 import Image from "next/image";
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount, useContractRead, useContractWrite } from "wagmi";
+import { TokenABI } from "@/components/abi";
+
+
+
+export const CONTRACT = {
+  address: process.env.NEXT_PUBLIC_TOKEN_ADDRESS as `0x${string}`,
+    abi: TokenABI as any,
+    functionName: 'balanceOf',
+  };
+
+export const CONTRACTW = {
+  address: process.env.NEXT_PUBLIC_TOKEN_ADDRESS as `0x${string}`,
+    abi: TokenABI as any,
+    functionName: 'mintWithCollateral',
+  };
 
 export default function Home() {
+const { address: walletAdress, isConnecting, isDisconnected } = useAccount()
+ const { data: balance } = useContractRead({
+    ...CONTRACT,
+    args: [walletAdress ?? '0x0000000000000000000000000000000000000000'],
+  });
+  const { data: mint } = useContractWrite({
+    ...CONTRACTW,
+    args: [walletAdress ?? '0x0000000000000000000000000000000000000000'],
+  });
+  console.log(balance)
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
@@ -14,6 +42,9 @@ export default function Home() {
           priority
         />
         <ConnectButton />
+        <h1 className="text-3xl font-bold mt-8">
+        
+      </h1>
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             To get started, edit the page.tsx file.
