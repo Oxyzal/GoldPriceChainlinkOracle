@@ -26,7 +26,6 @@ body {
 
 /* Effet glass / crypto */
 main {
-  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
