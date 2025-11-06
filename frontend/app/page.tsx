@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import {
   useAccount,
@@ -13,6 +12,7 @@ import { parseUnits } from "viem";
 import { TokenABI } from "@/components/abi";
 import { TOKEN_CONTRACT_ADDRESS, COLLATERAL_TOKEN_CONTRACT_ADDRESS } from "@/components/constants";
 import { erc20Abi } from "viem";
+import NFTCollection from "@/components/NFTCollection";
 
 export default function Home() {
   const { address, isConnected } = useAccount();
@@ -107,143 +107,243 @@ export default function Home() {
   }, [mintSuccess, fetchBalance]);
 
   return (
-    <div className="relative min-h-screen  ">
-      {/* Animated background elements */}
+    <div className="relative min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-yellow-100">
+      {/* Animated farm background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-800/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-800/20 rounded-full blur-3xl animate-pulse delay-700"></div>
-        <div className="absolute top-1/2 left-1/2 w-80 h-80  rounded-full blur-3xl animate-pulse delay-1000"></div>
+        {/* Sun */}
+        <div className="absolute top-10 right-10 w-32 h-32 bg-yellow-300 rounded-full blur-2xl animate-pulse"></div>
+        {/* Clouds */}
+        <div className="absolute top-20 left-20 w-40 h-20 bg-white/60 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-40 right-40 w-32 h-16 bg-white/50 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        {/* Grass hills */}
+        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-green-600/20 to-transparent"></div>
       </div>
 
-      <div className="relative flex min-h-screen flex-col items-center justify-center p-4 sm:p-8 bg-[#0a0c1a]">
-        <main className="w-full max-w-5xl">
-          {/* Header */}
+      {/* Floating farm elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-32 left-10 text-4xl animate-bounce" style={{ animationDelay: '0.5s' }}>🌾</div>
+        <div className="absolute top-48 right-20 text-4xl animate-bounce" style={{ animationDelay: '1s' }}>🌻</div>
+        <div className="absolute bottom-40 left-32 text-4xl animate-bounce" style={{ animationDelay: '1.5s' }}>🌷</div>
+        <div className="absolute top-64 right-64 text-3xl animate-bounce" style={{ animationDelay: '2s' }}>🦋</div>
+      </div>
+
+      <div className="relative flex min-h-screen flex-col items-center justify-center p-4 sm:p-8">
+        <main className="w-full max-w-6xl">
+          {/* Farm Header */}
           <div className="text-center mb-8 space-y-4">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-600 to-blue-700 shadow-2xl shadow-cyan-500/50 mb-4 transform hover:scale-110 transition-transform duration-300">
-              <span className="text-4xl">✨</span>
+            <div className="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-amber-400 via-orange-400 to-red-400 shadow-2xl shadow-orange-500/50 mb-4 transform hover:scale-110 hover:rotate-6 transition-all duration-300">
+              <span className="text-5xl">🥚</span>
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 tracking-tight">
-              Gold Stable Token
+            <h1 className="text-5xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-orange-500 to-red-500 tracking-tight drop-shadow-lg">
+              Egg Farm NFT
             </h1>
-            <p className="text-xl text-gray-300 font-medium">
-              Premium collateralized stablecoin backed by gold reserves
+            <p className="text-2xl text-amber-800 font-bold drop-shadow">
+              🐣 Mint, Hatch & Collect Rare Eggs! 🐤
             </p>
+            <div className="flex items-center justify-center gap-4 text-sm">
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-lg border-2 border-amber-300">
+                <span className="text-xl">🌾</span>
+                <span className="font-bold text-amber-700">Farm Level: 5</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full shadow-lg border-2 border-green-300">
+                <span className="text-xl">⭐</span>
+                <span className="font-bold text-green-700">Experience: 2,450 XP</span>
+              </div>
+            </div>
           </div>
 
           {/* Connect Button Container */}
           <div className="flex justify-center mb-12">
-            <div className="transform hover:scale-105 transition-transform duration-200">
+            <div className="transform hover:scale-110 hover:-translate-y-1 transition-all duration-300">
               <ConnectButton />
             </div>
           </div>
 
           {isConnected && (
             <div className="grid lg:grid-cols-2 gap-6 animate-in fade-in duration-500">
-              {/* Left Column - Balance Card */}
+              {/* Left Column - Barn/Balance Card */}
               <div className="space-y-6">
-                <div className="group relative bg-[#111428]/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-[#1c1f36]/50 hover:shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.02]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="group relative bg-gradient-to-br from-amber-100 to-orange-100 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border-4 border-amber-300 hover:shadow-orange-500/40 transition-all duration-300 hover:scale-[1.02]">
+                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-red-500 rounded-2xl rotate-12 flex items-center justify-center shadow-xl">
+                    <span className="text-3xl">🏠</span>
+                  </div>
 
                   <div className="relative">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-600 to-blue-700 flex items-center justify-center shadow-lg">
-                        <span className="text-2xl">💰</span>
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-500 flex items-center justify-center shadow-lg border-2 border-yellow-600">
+                        <span className="text-3xl">🐔</span>
                       </div>
-                      <h2 className="text-2xl font-bold text-white/90">
-                        Your Balance
-                      </h2>
+                      <div>
+                        <h2 className="text-3xl font-black text-amber-800">
+                          Your Barn
+                        </h2>
+                        <p className="text-sm text-amber-600 font-bold">Egg Collection</p>
+                      </div>
                     </div>
 
-                    <div className="bg-[#111428] rounded-2xl p-6 mb-4">
+                    <div className="bg-white/90 rounded-3xl p-6 mb-6 border-4 border-amber-200 shadow-inner">
                       {loadingBalance ? (
                         <div className="flex items-center gap-3">
-                          <div className="w-6 h-6 border-3 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-cyan-400">Loading balance...</span>
+                          <div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+                          <span className="text-orange-600 font-bold">Counting eggs...</span>
                         </div>
                       ) : (
                         <div>
-                          <p className="text-sm text-cyan-400 mb-2 font-medium">
-                            GOF Token Balance
+                          <p className="text-sm text-orange-600 mb-2 font-bold flex items-center gap-2">
+                            <span className="text-xl">🥚</span>
+                            Total Eggs Collected
                           </p>
-                          <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">
+                          <p className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 drop-shadow-lg">
                             {balance ?? "0"}
                           </p>
-                          <p className="text-sm text-cyan-500 mt-1">
-                            GOF
+                          <p className="text-lg text-orange-600 mt-2 font-bold">
+                            EGG Tokens
                           </p>
                         </div>
                       )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="bg-[#1c1f36]/50 rounded-xl p-3">
-                        <p className="text-cyan-400 mb-1">Status</p>
-                        <p className="font-semibold text-white/90">Active</p>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-4 border-3 border-green-300 shadow-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-2xl">🌱</span>
+                          <p className="text-green-700 font-bold text-sm">Status</p>
+                        </div>
+                        <p className="font-black text-green-800 text-lg">Active Farm</p>
                       </div>
-                      <div className="bg-[#1c1f36]/50 rounded-xl p-3">
-                        <p className="text-cyan-400 mb-1">Network</p>
-                        <p className="font-semibold text-white/90">Ethereum Sepolia</p>
+                      <div className="bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl p-4 border-3 border-blue-300 shadow-lg">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-2xl">🌐</span>
+                          <p className="text-blue-700 font-bold text-sm">Network</p>
+                        </div>
+                        <p className="font-black text-blue-800 text-lg">Sepolia</p>
+                      </div>
+                    </div>
+
+                    {/* Daily stats */}
+                    <div className="mt-4 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-4 border-3 border-purple-300">
+                      <p className="text-purple-700 font-bold text-sm mb-2 flex items-center gap-2">
+                        <span className="text-xl">📊</span>
+                        Today's Farm Stats
+                      </p>
+                      <div className="grid grid-cols-2 gap-3 text-sm">
+                        <div>
+                          <p className="text-purple-600">Eggs Laid: <span className="font-black text-purple-800">12</span></p>
+                        </div>
+                        <div>
+                          <p className="text-purple-600">Hatched: <span className="font-black text-purple-800">3</span></p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Stats Cards */}
+                {/* Farm Stats Cards */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-[#111428]/60 backdrop-blur-xl rounded-2xl p-5 shadow-lg border border-[#1c1f36]/30 hover:shadow-xl transition-all duration-300">
-                    <p className="text-sm text-cyan-400 mb-2">Collateral Ratio</p>
-                    <p className="text-2xl font-bold text-white/90">120%</p>
+                  <div className="bg-gradient-to-br from-yellow-100 to-amber-100 backdrop-blur-xl rounded-2xl p-5 shadow-xl border-3 border-yellow-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-3xl">🌾</span>
+                      <p className="text-sm text-amber-700 font-bold">Feed Stock</p>
+                    </div>
+                    <p className="text-3xl font-black text-amber-800">120%</p>
                   </div>
-                  <div className="bg-[#111428]/60 backdrop-blur-xl rounded-2xl p-5 shadow-lg border border-[#1c1f36]/30 hover:shadow-xl transition-all duration-300">
-                    <p className="text-sm text-cyan-400 mb-2">Stability Fee</p>
-                    <p className="text-2xl font-bold text-white/90">0.5%</p>
+                  <div className="bg-gradient-to-br from-rose-100 to-red-100 backdrop-blur-xl rounded-2xl p-5 shadow-xl border-3 border-rose-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-3xl">💰</span>
+                      <p className="text-sm text-rose-700 font-bold">Mint Fee</p>
+                    </div>
+                    <p className="text-3xl font-black text-rose-800">0.5%</p>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column - Mint Card */}
+              {/* Right Column - Hatchery/Mint Card */}
               <div className="space-y-6">
-                <div className="group relative bg-[#111428]/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-[#1c1f36]/50 hover:shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.02]">
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="group relative bg-gradient-to-br from-orange-100 to-red-100 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border-4 border-orange-300 hover:shadow-red-500/40 transition-all duration-300 hover:scale-[1.02]">
+                  <div className="absolute -top-4 -left-4 w-16 h-16 bg-yellow-400 rounded-2xl -rotate-12 flex items-center justify-center shadow-xl animate-bounce">
+                    <span className="text-3xl">✨</span>
+                  </div>
 
                   <div className="relative">
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-600 to-blue-700 flex items-center justify-center shadow-lg">
-                        <span className="text-2xl">⚡</span>
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center shadow-lg border-2 border-red-600">
+                        <span className="text-3xl">🥚</span>
                       </div>
-                      <h2 className="text-2xl font-bold text-white/90">
-                        Mint Tokens
-                      </h2>
+                      <div>
+                        <h2 className="text-3xl font-black text-orange-800">
+                          Egg Hatchery
+                        </h2>
+                        <p className="text-sm text-orange-600 font-bold">Mint New Eggs</p>
+                      </div>
                     </div>
 
                     <div className="space-y-5">
                       <div>
-                        <label className="block text-sm font-medium text-cyan-400 mb-2">
-                          Amount to Mint
+                        <label className="block text-sm font-bold text-orange-700 mb-2 flex items-center gap-2">
+                          <span className="text-xl">🌟</span>
+                          Eggs to Hatch
                         </label>
                         <div className="relative">
                           <input
                             type="text"
                             value={mintAmount}
                             onChange={(e) => setMintAmount(e.target.value)}
-                            className="w-full rounded-2xl border-2 border-cyan-700 bg-[#111428] p-4 pr-16 text-lg font-semibold text-white/90 focus:outline-none focus:ring-4 focus:ring-cyan-500/30 focus:border-cyan-500 transition-all"
-                            placeholder="0.00"
+                            className="w-full rounded-2xl border-4 border-orange-400 bg-white p-5 pr-20 text-2xl font-black text-orange-800 focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:border-yellow-400 transition-all shadow-inner"
+                            placeholder="0.01"
                           />
-                          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-cyan-400">
-                            GOF
+                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xl font-black text-orange-600">
+                            🥚 EGG
                           </span>
                         </div>
                       </div>
 
-                      {/* Collateral Info Card */}
-                      <div className="bg-[#111428] rounded-2xl p-4 border border-[#1c1f36]/50">
-                        <div className="flex justify-between text-sm mb-2">
-                          <span className="text-cyan-400">Required Collateral</span>
-                          <span className="font-semibold text-white/90">{mintAmount}</span>
+                      {/* Hatchery Info Card */}
+                      <div className="bg-white/90 rounded-2xl p-5 border-4 border-amber-200 shadow-inner">
+                        <div className="flex justify-between text-base mb-3">
+                          <span className="text-amber-700 font-bold flex items-center gap-2">
+                            <span className="text-xl">🌾</span>
+                            Feed Required
+                          </span>
+                          <span className="font-black text-amber-800">{mintAmount}</span>
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-cyan-400">You'll Receive</span>
-                          <span className="font-semibold text-white/90">{mintAmount} GOF</span>
+                        <div className="flex justify-between text-base mb-3">
+                          <span className="text-amber-700 font-bold flex items-center gap-2">
+                            <span className="text-xl">🥚</span>
+                            You'll Receive
+                          </span>
+                          <span className="font-black text-amber-800">{mintAmount} EGG</span>
+                        </div>
+                        <div className="pt-3 border-t-2 border-amber-200">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-orange-600 font-bold">Hatching Time</span>
+                            <span className="font-black text-orange-700">Instant! ⚡</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Egg rarity info */}
+                      <div className="bg-gradient-to-r from-purple-100 via-pink-100 to-rose-100 rounded-2xl p-4 border-3 border-purple-300">
+                        <p className="font-bold text-purple-700 mb-2 flex items-center gap-2">
+                          <span className="text-xl">🎲</span>
+                          Egg Rarity Chances
+                        </p>
+                        <div className="space-y-1 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Common 🥚</span>
+                            <span className="font-bold text-gray-700">60%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-blue-600">Rare 💙</span>
+                            <span className="font-bold text-blue-700">25%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-purple-600">Epic 💜</span>
+                            <span className="font-bold text-purple-700">12%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-yellow-600">Legendary ⭐</span>
+                            <span className="font-bold text-yellow-700">3%</span>
+                          </div>
                         </div>
                       </div>
 
@@ -251,54 +351,58 @@ export default function Home() {
                         <button
                           onClick={handleApprove}
                           disabled={approving}
-                          className={`w-full rounded-2xl px-8 py-4 font-bold text-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-xl ${
+                          className={`w-full rounded-2xl px-8 py-5 font-black text-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-2xl border-4 ${
                             approving
-                              ? " text-gray-400 cursor-not-allowed"
-                              : "bg-cyan-600 text-white hover:bg-cyan-500 shadow-cyan-500/50"
+                              ? "bg-gray-300 text-gray-500 cursor-not-allowed border-gray-400"
+                              : "bg-gradient-to-r from-green-400 to-emerald-500 text-white hover:from-green-500 hover:to-emerald-600 shadow-green-500/50 border-green-600"
                           }`}
                         >
                           {approving ? (
-                            <span className="flex items-center justify-center gap-2">
-                              <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
-                              Approving...
+                            <span className="flex items-center justify-center gap-3">
+                              <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                              Preparing Feed...
                             </span>
                           ) : (
-                            "Approve Collateral"
+                            <span className="flex items-center justify-center gap-2">
+                              🌾 Approve Feed Stock
+                            </span>
                           )}
                         </button>
                       ) : (
                         <button
                           onClick={handleMint}
                           disabled={isPending || txLoading}
-                          className={`w-full rounded-2xl px-8 py-4 font-bold text-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-xl ${
+                          className={`w-full rounded-2xl px-8 py-5 font-black text-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-2xl border-4 ${
                             isPending || txLoading
-                              ? " text-gray-400 cursor-not-allowed"
-                              : "bg-cyan-600 text-white hover:bg-blue-500 shadow-cyan-500/50"
+                              ? "bg-gray-300 text-gray-500 cursor-not-allowed border-gray-400"
+                              : "bg-gradient-to-r from-orange-400 via-red-400 to-pink-500 text-white hover:from-orange-500 hover:via-red-500 hover:to-pink-600 shadow-orange-500/50 border-orange-600 animate-pulse"
                           }`}
                         >
                           {isPending ? (
-                            <span className="flex items-center justify-center gap-2">
-                              <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
-                              Confirm in Wallet...
+                            <span className="flex items-center justify-center gap-3">
+                              <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                              Check Your Wallet...
                             </span>
                           ) : txLoading ? (
-                            <span className="flex items-center justify-center gap-2">
-                              <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin"></div>
-                              Minting...
+                            <span className="flex items-center justify-center gap-3">
+                              <div className="w-6 h-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                              Hatching Eggs...
                             </span>
                           ) : (
-                            "🚀 Mint Tokens"
+                            <span className="flex items-center justify-center gap-2">
+                              🥚 Hatch Eggs Now! 🐣
+                            </span>
                           )}
                         </button>
                       )}
 
                       {mintSuccess && (
-                        <div className="bg-green-900/30 border-2 border-green-500 rounded-2xl p-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                          <div className="flex items-center gap-3">
-                            <span className="text-2xl">✅</span>
+                        <div className="bg-gradient-to-r from-green-100 to-emerald-100 border-4 border-green-400 rounded-2xl p-5 animate-in fade-in slide-in-from-bottom-4 duration-500 shadow-xl">
+                          <div className="flex items-center gap-4">
+                            <span className="text-5xl animate-bounce">🎉</span>
                             <div>
-                              <p className="font-bold text-green-300">Mint Successful!</p>
-                              <p className="text-sm text-green-400">Your tokens have been minted</p>
+                              <p className="font-black text-green-700 text-xl">Eggs Hatched!</p>
+                              <p className="text-base text-green-600 font-bold">Your new eggs are ready! 🐣</p>
                             </div>
                           </div>
                         </div>
@@ -310,57 +414,41 @@ export default function Home() {
 
               {/* NFT Collection - Full Width */}
               <div className="lg:col-span-2">
-                <div className="bg-[#111428]/80 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-[#1c1f36]/50">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center shadow-lg">
-                      <span className="text-2xl">🎨</span>
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold text-white/90">
-                        NFT Collection
-                      </h2>
-                      <p className="text-sm text-cyan-400">
-                        Your tokenized assets
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    {[1, 2, 3, 4].map((n) => (
-                      <div
-                        key={n}
-                        className="group relative aspect-square bg-[#111428] dark:from-zinc-800 dark:to-amber-900/30 rounded-2xl flex flex-col items-center justify-center overflow-hidden border-2 border-[#1c1f36]/50 hover:border-cyan-500 transition-all duration-300 hover:scale-105 cursor-pointer"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/0 to-cyan-800/0 group-hover:from-blue-900/20 group-hover:to-cyan-800/20 transition-all duration-300"></div>
-                        <span className="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">🏆</span>
-                        <p className="font-bold text-white/80 text-sm">NFT #{n}</p>
-                        <p className="text-xs text-cyan-400">Coming Soon</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <NFTCollection />
               </div>
             </div>
           )}
 
           {!isConnected && (
-            <div className="text-center bg-[#111428]/60 backdrop-blur-xl rounded-3xl p-12 shadow-2xl border border-[#1c1f36]/50 max-w-2xl mx-auto">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-cyan-600 to-blue-700 rounded-3xl flex items-center justify-center shadow-2xl shadow-cyan-500/50 animate-bounce">
-                <span className="text-5xl">🔐</span>
+            <div className="text-center bg-gradient-to-br from-amber-100 to-orange-100 backdrop-blur-xl rounded-3xl p-16 shadow-2xl border-4 border-amber-300 max-w-2xl mx-auto">
+              <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-2xl shadow-orange-500/50 animate-bounce border-4 border-yellow-600">
+                <span className="text-7xl">🔒</span>
               </div>
-              <h3 className="text-3xl font-bold text-white/90 mb-3">
-                Connect Your Wallet
+              <h3 className="text-4xl font-black text-amber-800 mb-4">
+                Welcome to the Farm!
               </h3>
-              <p className="text-cyan-400 text-lg">
-                Connect your wallet to start minting GOF tokens and accessing your digital assets
+              <p className="text-orange-700 text-xl font-bold mb-6">
+                Connect your wallet to start hatching eggs and collecting rare NFTs! 🐔
               </p>
+              <div className="flex items-center justify-center gap-3 text-amber-700">
+                <span className="text-3xl">🥚</span>
+                <span className="text-3xl">🐣</span>
+                <span className="text-3xl">🐤</span>
+                <span className="text-3xl">🐓</span>
+              </div>
             </div>
           )}
         </main>
 
-        <footer className="mt-16 text-center text-sm text-cyan-400">
-          <p className="font-medium">Built with Next.js, Wagmi & RainbowKit</p>
-          <p className="text-xs mt-1 text-cyan-300">Secured by blockchain technology</p>
+        <footer className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl p-6 border-3 border-amber-300 inline-block shadow-lg">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">🌾</span>
+              <p className="font-black text-amber-800">Built with Next.js, Wagmi & RainbowKit</p>
+              <span className="text-2xl">🌾</span>
+            </div>
+            <p className="text-sm text-orange-700 font-bold">🐔 Happy Farming! Secured by blockchain 🔐</p>
+          </div>
         </footer>
       </div>
     </div>
