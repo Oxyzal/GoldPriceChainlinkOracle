@@ -13,7 +13,7 @@ import { TokenABI } from "@/components/abi";
 import { TOKEN_CONTRACT_ADDRESS, COLLATERAL_TOKEN_CONTRACT_ADDRESS } from "@/components/constants";
 import { erc20Abi } from "viem";
 import NFTCollection from "@/components/NFTCollection";
-
+import NFTCollection2 from "@/components/NFTCollection2";
 export default function Home() {
   const { address, isConnected } = useAccount();
   const [mintAmount, setMintAmount] = useState("0.01");
@@ -413,6 +413,80 @@ export default function Home() {
               </div>
 
               {/* NFT Collection - Full Width */}
+              {/* Farm Section */}
+<div className="group relative bg-gradient-to-br from-green-100 to-emerald-100 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border-4 border-green-300 hover:shadow-green-500/40 transition-all duration-300 hover:scale-[1.02] lg:col-span-2">
+  <div className="absolute -top-4 -right-4 w-16 h-16 bg-yellow-400 rounded-2xl rotate-12 flex items-center justify-center shadow-xl">
+    <span className="text-3xl">🌿</span>
+  </div>
+
+  <div className="relative">
+    <div className="flex items-center gap-3 mb-6">
+      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-lg border-2 border-green-600">
+        <span className="text-3xl">🏡</span>
+      </div>
+      <div>
+        <h2 className="text-3xl font-black text-green-800">Your Farm</h2>
+        <p className="text-sm text-green-600 font-bold">Stake & Grow Your Eggs 🌾</p>
+      </div>
+    </div>
+
+    <div className="grid md:grid-cols-2 gap-6">
+      {/* Farm Status Card */}
+      <div className="bg-white/90 rounded-3xl p-6 border-4 border-green-200 shadow-inner">
+        <p className="text-green-700 font-bold text-sm mb-2 flex items-center gap-2">
+          <span className="text-xl">🌞</span>
+          Farm Production Status
+        </p>
+        <div className="flex justify-between mb-2">
+          <span className="text-green-700 font-bold">Daily Yield</span>
+          <span className="font-black text-green-800">+2.5 EGG</span>
+        </div>
+        <div className="flex justify-between mb-2">
+          <span className="text-green-700 font-bold">Total Staked</span>
+          <span className="font-black text-green-800">150 EGG</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-green-700 font-bold">Farm Boost</span>
+          <span className="font-black text-green-800">+10%</span>
+        </div>
+      </div>
+
+      {/* Stake/Unstake Actions */}
+      <div className="bg-white/90 rounded-3xl p-6 border-4 border-green-200 shadow-inner">
+        <p className="text-green-700 font-bold text-sm mb-3 flex items-center gap-2">
+          <span className="text-xl">🐔</span>
+          Manage Your Eggs
+        </p>
+
+        <div className="flex gap-3">
+          <button className="w-1/2 rounded-2xl px-6 py-4 font-black text-lg bg-gradient-to-r from-green-400 to-emerald-500 text-white hover:from-green-500 hover:to-emerald-600 shadow-lg border-2 border-green-600 transition-all hover:scale-105">
+            🌾 Stake
+          </button>
+          <button className="w-1/2 rounded-2xl px-6 py-4 font-black text-lg bg-gradient-to-r from-yellow-400 to-orange-500 text-white hover:from-yellow-500 hover:to-orange-600 shadow-lg border-2 border-yellow-600 transition-all hover:scale-105">
+            🥚 Harvest
+          </button>
+        </div>
+
+        <div className="mt-4 text-sm text-green-700 font-bold">
+          <p>💡 Tip: Stake your EGG tokens to earn extra rewards every day!</p>
+        </div>
+      </div>
+    </div>
+
+    {/* Progress Bar */}
+    <div className="mt-6">
+      <p className="font-bold text-green-700 mb-2 flex items-center gap-2">
+        <span className="text-xl">📈</span>
+        Growth Progress
+      </p>
+      <div className="w-full h-6 bg-green-200 rounded-full overflow-hidden shadow-inner border-2 border-green-300">
+        <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 animate-pulse rounded-full w-[65%]"></div>
+      </div>
+      <p className="text-right text-sm font-bold text-green-700 mt-1">65% to next level 🌱</p>
+    </div>
+  </div>
+</div>
+
               <div className="lg:col-span-2">
                 <NFTCollection />
               </div>
